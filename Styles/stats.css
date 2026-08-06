@@ -1,0 +1,47 @@
+/* ============================================
+   STYLES - STATISTIQUES (stats.html)
+   ============================================ */
+
+/* ===== STATS DETAIL ===== */
+.stats-detail {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+.stat-detail-card {
+    background: var(--card-bg);
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+}
+
+.stat-detail-card h3 {
+    margin-bottom: 15px;
+    color: var(--text-color);
+}
+
+.stat-detail-card ul {
+    list-style: none;
+}
+
+.stat-detail-card ul li {
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    color: var(--text-color);
+}
+
+#monthly-summary p {
+    padding: 6px 0;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-color);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .stats-detail {
+        grid-template-columns: 1fr;
+    }
+}

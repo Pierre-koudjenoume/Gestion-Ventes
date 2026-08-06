@@ -1,0 +1,91 @@
+/* ============================================
+   STYLES - TRANSACTIONS (transactions.html)
+   ============================================ */
+
+/* ===== RECHERCHE & FILTRES ===== */
+.controls-wrapper {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.search-container {
+    position: relative;
+}
+
+.search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-secondary);
+    opacity: 0.5;
+}
+
+#search-input {
+    padding: 10px 16px 10px 38px;
+    border-radius: 30px;
+    border: 2px solid var(--border-color);
+    background: var(--input-bg);
+    color: var(--text-color);
+    width: 250px;
+    outline: none;
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.3s ease;
+}
+
+#search-input:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 4px rgba(45, 125, 70, 0.1);
+}
+
+#filter-type {
+    padding: 10px 16px;
+    border-radius: 30px;
+    border: 2px solid var(--border-color);
+    background: var(--input-bg);
+    color: var(--text-color);
+    font-family: 'Poppins', sans-serif;
+    outline: none;
+    cursor: pointer;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .controls-wrapper {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    #search-input {
+        width: 100%;
+    }
+
+    #filter-type {
+        width: 100%;
+    }
+}
+
+/* ===== PAGE ENTIÈRE EN FLEX ===== */
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* ===== LE MAIN PREND TOUT L'ESPACE DISPONIBLE ===== */
+main {
+    flex: 1;
+}
+
+/* ===== LE FOOTER RESTE EN BAS ===== */
+footer {
+    margin-top: auto;
+    flex-shrink: 0;
+}

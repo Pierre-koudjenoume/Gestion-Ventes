@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JP CONSULTING SERVICES - Tableau de bord</title>
+    <link rel="icon" type="image/png" href="../Logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="../Styles/style.css">
+    <link rel="stylesheet" href="../Styles/index.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo-title-wrapper">
+            <img src="../Logo.png" alt="JP Consulting Services" class="header-logo">
+            <div>
+                <h1 class="hero-title">Gestion des Ventes</h1>
+                <p class="hero-subtitle">Gérez facilement vos entrées et sorties</p>
+            </div>
+        </div>
+        
+        <nav>
+            <a href="index.html" class="active"><i class="fa-solid fa-gauge-high"></i> Tableau de bord</a>
+            <a href="transactions.html"><i class="fa-solid fa-list"></i> Transactions</a>
+            <a href="add.html"><i class="fa-solid fa-plus"></i> Ajouter</a>
+            <a href="stock.html"><i class="fa-solid fa-boxes-stacked"></i> Stock</a>
+            <a href="stats.html"><i class="fa-solid fa-chart-simple"></i> Statistiques</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="section active">
+            <div class="stats-grid">
+                <div class="stat-card" style="border-left: 4px solid #2ecc71;">
+                    <div class="stat-icon"><i class="fa-solid fa-boxes-stacked"></i></div>
+                    <div class="stat-info">
+                        <span class="stat-number" id="stock-total">0</span>
+                        <span class="stat-label">Stock total</span>
+                    </div>
+                </div>
+                <div class="stat-card" style="border-left: 4px solid #3498db;">
+                    <div class="stat-icon"><i class="fa-solid fa-arrow-right-to-bracket"></i></div>
+                    <div class="stat-info">
+                        <span class="stat-number" id="entrees-total">0 FCFA</span>
+                        <span class="stat-label">Entrées</span>
+                    </div>
+                </div>
+                <div class="stat-card" style="border-left: 4px solid #e74c3c;">
+                    <div class="stat-icon"><i class="fa-solid fa-arrow-right-from-bracket"></i></div>
+                    <div class="stat-info">
+                        <span class="stat-number" id="sorties-total">0 FCFA</span>
+                        <span class="stat-label">Sorties</span>
+                    </div>
+                </div>
+                <div class="stat-card" style="border-left: 4px solid #f39c12;">
+                    <div class="stat-icon"><i class="fa-solid fa-coins"></i></div>
+                    <div class="stat-info">
+                        <span class="stat-number" id="benefice-total">0 FCFA</span>
+                        <span class="stat-label">Bénéfice</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="recent-transactions">
+                <div class="section-header">
+                    <h2>📋 Dernières transactions</h2>
+                    <a href="transactions.html" class="btn-outline">Voir tout</a>
+                </div>
+                <div id="recent-list" class="transaction-list"></div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>© 2026 JP Consulting - Gestion des Ventes v1.0</p>
+            <p>Données sauvegardées automatiquement</p>
+        </div>
+    </footer>
+
+    <script src="../Scripts/data.js"></script>
+    <script src="../Scripts/app.js"></script>
+
+</body>
+</html>
