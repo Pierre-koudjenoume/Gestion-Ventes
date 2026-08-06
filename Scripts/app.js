@@ -207,6 +207,25 @@ function updateStatsDetail() {
     }
 }
 
+// =====================================================
+// MODE SOMBRE
+// =====================================================
+if (themeBtn) {
+    // Charger la préférence sauvegardée
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+        themeBtn.textContent = '☀️';
+    }
+    
+    // Basculer le mode au clic
+    themeBtn.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        const isDark = document.body.classList.contains('dark-mode');
+        themeBtn.textContent = isDark ? '☀️' : '🌙';
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    });
+}
 
 // =====================================================
 // INITIALISATION
