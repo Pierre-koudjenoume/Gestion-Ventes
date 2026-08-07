@@ -9,11 +9,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="../Styles/style.css">
     <link rel="stylesheet" href="../Styles/stats.css">
+    <script src="../Scripts/session.js"></script>
+    <script> if (!isLoggedIn()) window.location.href = 'login.html'; </script>
 </head>
 <body>
-
     <button id="theme-btn" title="Changer le mode">🌙</button>
-
     <header>
         <div class="logo-title-wrapper">
             <img src="../Logo.png" alt="JP Consulting Services" class="header-logo">
@@ -22,7 +22,6 @@
                 <p class="hero-subtitle">Gérez facilement vos entrées et sorties</p>
             </div>
         </div>
-        
         <nav>
             <a href="index.html"><i class="fa-solid fa-gauge-high"></i> Tableau de bord</a>
             <a href="transactions.html"><i class="fa-solid fa-list"></i> Transactions</a>
@@ -31,57 +30,34 @@
             <a href="stats.html" class="active"><i class="fa-solid fa-chart-simple"></i> Statistiques</a>
         </nav>
     </header>
-
     <main>
         <section class="section active">
             <h2>📊 Statistiques détaillées</h2>
-            
             <div class="stats-detail">
-                <div class="stat-detail-card">
-                    <h3>🏷️ Produits les plus vendus</h3>
-                    <ul id="top-products"></ul>
-                </div>
-                <div class="stat-detail-card">
-                    <h3>📅 Résumé mensuel</h3>
-                    <div id="monthly-summary"></div>
-                </div>
+                <div class="stat-detail-card"><h3>🏷️ Produits les plus vendus</h3><ul id="top-products"></ul></div>
+                <div class="stat-detail-card"><h3>📅 Résumé mensuel</h3><div id="monthly-summary"></div></div>
             </div>
-
-            <div class="stats-detail" style="margin-top: 30px;">
-                <div class="stat-detail-card">
-                    <h3>📊 Résumé global</h3>
-                    <div id="global-summary"></div>
-                </div>
-                <div class="stat-detail-card">
-                    <h3>💡 Conseil</h3>
-                    <div id="advice"></div>
-                </div>
+            <div class="stats-detail" style="margin-top:30px;">
+                <div class="stat-detail-card"><h3>📊 Résumé global</h3><div id="global-summary"></div></div>
+                <div class="stat-detail-card"><h3>💡 Conseil</h3><div id="advice"></div></div>
             </div>
         </section>
     </main>
-
     <footer>
-    <div class="footer-content">
-        <div class="footer-top">
-            <p class="footer-brand">JP CONSULTING SERVICES</p>
-            <div class="footer-divider"></div>
+        <div class="footer-content">
+            <div class="footer-top">
+                <p class="footer-brand">JP CONSULTING SERVICES</p>
+                <div class="footer-divider"></div>
+            </div>
+            <div class="footer-bottom"><p class="footer-dev">Développé par Jean-Pierre KOUDJENOUME</p></div>
         </div>
-        <div class="footer-bottom">
-            <p class="footer-dev">Développé par Jean-Pierre KOUDJENOUME</p>
-        </div>
-    </div>
     </footer>
-
     <script src="../Scripts/data.js"></script>
     <script src="../Scripts/app.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            loadData();
-            refreshUI();
-            updateStatsDetail();
-            
+            loadData(); refreshUI(); updateStatsDetail();
             const stats = getStats();
-            
             document.getElementById('global-summary').innerHTML = `
                 <p><strong>Total des transactions :</strong> ${transactions.length}</p>
                 <p><strong>Entrées :</strong> ${stats.entrees.toLocaleString('fr-FR')} FCFA</p>
@@ -89,28 +65,15 @@
                 <p><strong>Bénéfice :</strong> ${stats.benefice.toLocaleString('fr-FR')} FCFA</p>
                 <p><strong>Stock :</strong> ${stats.stock} articles</p>
             `;
-            
             const advice = document.getElementById('advice');
             if (stats.benefice > 0) {
-                advice.innerHTML = `
-                    <i class="fa-solid fa-thumbs-up" style="color: #2ecc71; font-size: 2rem; display: block; margin-bottom: 10px;"></i>
-                    <p>Vous êtes bénéficiaire ! Continuez comme ça ! 💪</p>
-                    <p style="font-size: 0.9rem; opacity: 0.7;">Votre marge est de ${((stats.benefice / stats.sorties) * 100).toFixed(1)}%</p>
-                `;
+                advice.innerHTML = `<i class="fa-solid fa-thumbs-up" style="color:#2ecc71;font-size:2rem;display:block;margin-bottom:10px;"></i><p>Vous êtes bénéficiaire ! Continuez comme ça ! 💪</p><p style="font-size:0.9rem;opacity:0.7;">Votre marge est de ${((stats.benefice / stats.sorties) * 100).toFixed(1)}%</p>`;
             } else if (stats.benefice < 0) {
-                advice.innerHTML = `
-                    <i class="fa-solid fa-lightbulb" style="color: #f39c12; font-size: 2rem; display: block; margin-bottom: 10px;"></i>
-                    <p>Vous êtes en perte. Essayez de réduire vos coûts ou d'augmenter vos prix.</p>
-                    <p style="font-size: 0.9rem; opacity: 0.7;">Votre marge est de ${((stats.benefice / stats.sorties) * 100).toFixed(1)}%</p>
-                `;
+                advice.innerHTML = `<i class="fa-solid fa-lightbulb" style="color:#f39c12;font-size:2rem;display:block;margin-bottom:10px;"></i><p>Vous êtes en perte. Essayez de réduire vos coûts ou d'augmenter vos prix.</p><p style="font-size:0.9rem;opacity:0.7;">Votre marge est de ${((stats.benefice / stats.sorties) * 100).toFixed(1)}%</p>`;
             } else {
-                advice.innerHTML = `
-                    <i class="fa-solid fa-scale-balanced" style="color: #3498db; font-size: 2rem; display: block; margin-bottom: 10px;"></i>
-                    <p>Vous êtes à l'équilibre. Essayez d'augmenter vos marges.</p>
-                `;
+                advice.innerHTML = `<i class="fa-solid fa-scale-balanced" style="color:#3498db;font-size:2rem;display:block;margin-bottom:10px;"></i><p>Vous êtes à l'équilibre. Essayez d'augmenter vos marges.</p>`;
             }
         });
     </script>
-
 </body>
 </html>

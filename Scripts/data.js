@@ -1,12 +1,8 @@
 // =====================================================
 // DONNÉES DE L'APPLICATION
 // =====================================================
-
 let transactions = [];
 
-// =====================================================
-// CHARGER LES DONNÉES
-// =====================================================
 function loadData() {
     const saved = localStorage.getItem('transactions');
     if (saved) {
@@ -22,9 +18,6 @@ function loadData() {
     }
 }
 
-// =====================================================
-// SAUVEGARDER LES DONNÉES
-// =====================================================
 function saveData() {
     try {
         localStorage.setItem('transactions', JSON.stringify(transactions));
@@ -34,9 +27,6 @@ function saveData() {
     }
 }
 
-// =====================================================
-// AJOUTER UNE TRANSACTION
-// =====================================================
 function addTransaction(data) {
     const transaction = {
         id: Date.now(),
@@ -49,19 +39,26 @@ function addTransaction(data) {
         date: new Date().toLocaleDateString('fr-FR'),
         timestamp: Date.now()
     };
-    
     transactions.unshift(transaction);
     saveData();
     return transaction;
 }
 
-// =====================================================
-// SUPPRIMER UNE TRANSACTION
-// =====================================================
-function deleteTransaction(id) {
-    if (!confirm('Supprimer cette transaction ?')) return;
-    transactions = transactions.filter(t => t.id !== id);
-    saveData();
-    refreshUI();
-    applyFilters();
+function getProductStock(produit) {
+    let stock = 0;
+    transactions.forEach(t => {
+        if (t.produit === produit) {
+            if (t.type === 'entree') stock += t.quantite;
+            else stock -= t.quantite;
+        }
+    });
+    return stock;
+}
+
+function canSellProduct(produit, quantite) {
+    const stockDisponible = getProductStock(produit);
+    if (stockDisponible < quantite) {
+        return { possible: false, stockDisponible: stockDisponible, message: `⚠️ Stock insuffisant ! Vous avez ${stockDisponible} unités disponibles.` };
+    }
+    return { possible: true, stockDisponible: stockDisponible, message: `✅ Stock suffisant : ${stockDisponible} unités disponibles.` };
 }

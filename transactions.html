@@ -9,11 +9,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="../Styles/style.css">
     <link rel="stylesheet" href="../Styles/transactions.css">
+    <script src="../Scripts/session.js"></script>
+    <script> if (!isLoggedIn()) window.location.href = 'login.html'; </script>
 </head>
 <body>
-
     <button id="theme-btn" title="Changer le mode">🌙</button>
-
     <header>
         <div class="logo-title-wrapper">
             <img src="../Logo.png" alt="JP Consulting Services" class="header-logo">
@@ -22,7 +22,6 @@
                 <p class="hero-subtitle">Gérez facilement vos entrées et sorties</p>
             </div>
         </div>
-        
         <nav>
             <a href="index.html"><i class="fa-solid fa-gauge-high"></i> Tableau de bord</a>
             <a href="transactions.html" class="active"><i class="fa-solid fa-list"></i> Transactions</a>
@@ -31,7 +30,6 @@
             <a href="stats.html"><i class="fa-solid fa-chart-simple"></i> Statistiques</a>
         </nav>
     </header>
-
     <main>
         <section class="section active">
             <div class="section-header">
@@ -51,30 +49,24 @@
             <div id="transaction-list" class="transaction-list"></div>
         </section>
     </main>
-
     <footer>
-    <div class="footer-content">
-        <div class="footer-top">
-            <p class="footer-brand">JP CONSULTING SERVICES</p>
-            <div class="footer-divider"></div>
+        <div class="footer-content">
+            <div class="footer-top">
+                <p class="footer-brand">JP CONSULTING SERVICES</p>
+                <div class="footer-divider"></div>
+            </div>
+            <div class="footer-bottom"><p class="footer-dev">Développé par Jean-Pierre KOUDJENOUME</p></div>
         </div>
-        <div class="footer-bottom">
-            <p class="footer-dev">Développé par Jean-Pierre KOUDJENOUME</p>
-        </div>
-    </div>
     </footer>
-
     <script src="../Scripts/data.js"></script>
     <script src="../Scripts/app.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             loadData();
             applyFilters();
-            
             document.getElementById('search-input').addEventListener('input', applyFilters);
             document.getElementById('filter-type').addEventListener('change', applyFilters);
         });
     </script>
-
 </body>
 </html>
