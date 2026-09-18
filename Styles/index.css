@@ -11,6 +11,9 @@
 }
 
 .stat-card {
+    flex: 1 1 200px; /* ✅ Flexibilité : base 200px, peut grandir/rétrécir */
+    min-width: 180px;
+    max-width: 100%;
     background: var(--card-bg);
     padding: 20px 25px;
     border-radius: 16px;
@@ -32,11 +35,14 @@
     color: var(--accent-color);
     width: 50px;
     text-align: center;
+    flex-shrink: 0;
 }
 
 .stat-info {
     display: flex;
     flex-direction: column;
+    flex: 1;
+    min-width: 0;
 }
 
 .stat-number {
@@ -52,29 +58,93 @@
     font-weight: 300;
 }
 
-/* ===== RESPONSIVE ===== */
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+/* ✅ Tablettes (768px et moins) */
 @media (max-width: 768px) {
-    .stats-grid {
-        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    .stat-card {
+        flex: 1 1 160px;
+        min-width: 150px;
+        padding: 18px 20px;
+        gap: 15px;
     }
 
     .stat-number {
-        font-size: 1.3rem;
+        font-size: 1.4rem;
+    }
+
+    .stat-label {
+        font-size: 0.8rem;
     }
 }
 
+/* ✅ Téléphones (480px et moins) */
 @media (max-width: 480px) {
     .stat-card {
-        padding: 15px;
+        flex: 1 1 140px;
+        min-width: 130px;
+        padding: 15px 12px;
+        gap: 10px;
+        flex-direction: column;
+        text-align: center;
+        border-left: none;
+        border-top: 4px solid var(--accent-color);
+    }
+
+    .stat-icon {
+        font-size: 1.6rem;
+        width: auto;
     }
 
     .stat-number {
-        font-size: 1.1rem;
+        font-size: 1.2rem;
+    }
+
+    .stat-label {
+        font-size: 0.7rem;
+    }
+
+    .stats-grid {
+        gap: 12px;
     }
 }
 
-/* ===== PAGE ENTIÈRE EN FLEX ===== */
-html, body {
+/* ✅ Très petits téléphones (380px et moins) */
+@media (max-width: 380px) {
+    .stat-card {
+        flex: 1 1 100%;
+        flex-direction: row;
+        text-align: left;
+        border-top: none;
+        border-left: 4px solid var(--accent-color);
+        padding: 12px 15px;
+    }
+
+    .stat-icon {
+        font-size: 1.4rem;
+        width: 40px;
+    }
+
+    .stat-number {
+        font-size: 1rem;
+    }
+
+    .stat-label {
+        font-size: 0.65rem;
+    }
+
+    .stats-grid {
+        gap: 10px;
+    }
+}
+
+/* ============================================
+   PAGE ENTIÈRE EN FLEX
+   ============================================ */
+html,
+body {
     height: 100%;
     margin: 0;
 }
@@ -85,12 +155,10 @@ body {
     min-height: 100vh;
 }
 
-/* ===== LE MAIN PREND TOUT L'ESPACE DISPONIBLE ===== */
 main {
     flex: 1;
 }
 
-/* ===== LE FOOTER RESTE EN BAS ===== */
 footer {
     margin-top: auto;
     flex-shrink: 0;

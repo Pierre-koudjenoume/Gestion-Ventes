@@ -169,6 +169,102 @@ if (themeBtn) {
 }
 
 // =====================================================
+// EXPORTER LES DONNÉES
+// =====================================================
+function exportData() {
+    // 1. Récupérer les données
+    const data = {
+        transactions: transactions,
+        exportDate: new Date().toISOString(),
+        version: '1.0',
+        total: transactions.length
+    };
+    
+    // 2. Convertir en JSON
+    const json = JSON.stringify(data, null, 2);
+    
+    // 3. Créer un blob
+    const blob = new Blob([json], { type: 'application/json' });
+    
+    // 4. Créer un lien de téléchargement
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    
+    // 5. Nom du fichier avec la date
+    const date = new Date().toISOString().slice(0, 10);
+    a.download = `transactions_${date}.json`;
+    
+    // 6. Télécharger
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    
+    // 7. Message de confirmation
+    alert(`✅ ${transactions.length} transactions exportées avec succès !`);
+}
+
+// =====================================================
+// IMPORTER LES DONNÉES
+// =====================================================
+function importData(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        try {
+            // 1. Lire le fichier
+            const data = JSON.parse(e.target.result);
+            
+            // 2. Vérifier le format
+            if (!data.transactions || !Array.isArray(data.transactions)) {
+                alert('❌ Format de fichier invalide.');
+                return;
+            }
+            
+            // 3. Demander confirmation
+            const confirmImport = confirm(
+                `⚠️ Cette action va remplacer toutes vos données actuelles par celles du fichier.\n\n` +
+                `📦 Fichier : ${file.name}\n` +
+                `📊 ${data.transactions.length} transactions\n` +
+                `📅 Exporté le : ${data.exportDate ? new Date(data.exportDate).toLocaleDateString('fr-FR') : 'Non spécifié'}\n\n` +
+                `Continuer ?`
+            );
+            
+            if (!confirmImport) return;
+            
+            // 4. Remplacer les données
+            transactions = data.transactions;
+            saveData();
+            refreshUI();
+            
+            // 5. Message de succès
+            alert(`✅ ${transactions.length} transactions importées avec succès !`);
+            
+        } catch (err) {
+            alert('❌ Erreur lors de l\'importation. Fichier invalide.');
+            console.error('Erreur d\'import:', err);
+        }
+    };
+    reader.readAsText(file);
+    
+    // Réinitialiser l'input
+    event.target.value = '';
+}
+
+// =====================================================
+// AJOUTER L'ÉCOUTEUR D'IMPORT
+// =====================================================
+document.addEventListener('DOMContentLoaded', function() {
+    const importInput = document.getElementById('import-file');
+    if (importInput) {
+        importInput.addEventListener('change', importData);
+    }
+});
+
+// =====================================================
 // INITIALISATION
 // =====================================================
 document.addEventListener('DOMContentLoaded', function() {

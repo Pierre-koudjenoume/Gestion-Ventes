@@ -373,6 +373,14 @@ body.dark-mode footer .footer-brand {
     border-radius: 2px;
 }
 
+.data-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
     .footer-contact {
